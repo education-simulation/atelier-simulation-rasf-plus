@@ -12,19 +12,20 @@ const PLUS = `
 body { margin:0; font-family:'Nunito',system-ui,sans-serif; }
 .aide-fermer { all:unset; cursor:pointer; margin-left:auto; color:#fff; background:#3f3f46; border:1px solid #52525b; border-radius:8px; padding:4px 12px; font-weight:800; font-size:13px; }
 .aide-fermer:hover { background:#dc2626; border-color:#dc2626; }
+.aide-fermer.aide { background:#f59e0b; border-color:#f59e0b; color:#1f1300; }
 .aide-fermer.flottant { position:fixed; top:12px; right:12px; z-index:70; background:#0b0b0f; padding:7px 14px; font-size:14px; }\n.g.avec-fermer { padding-top:64px !important; }
 `
 const page = document.body.dataset.page
 
-// « ✕ Fermer » : ferme cet onglet. Un navigateur refuse souvent de fermer un onglet ouvert par un lien : on revient
-// alors à la page d'avant si elle existe, sinon on dit, sur la page (pas d'alerte, souvent bloquée), comment fermer l'onglet.
+// « ✕ Fermer » : essaie de fermer l'onglet. Le navigateur d'Antigravity (comme beaucoup d'autres) refuse qu'une page
+// ferme un onglet ouvert par un lien : le bouton dit alors, à sa place, où cliquer (le × de l'onglet).
 function fermer(ev) {
   const bouton = ev.currentTarget
   window.close()
   setTimeout(() => {
     if (window.closed) return
-    if (history.length > 1) { history.back(); return }
-    bouton.textContent = "Ferme cet onglet avec son × (en haut)"
+    bouton.textContent = "👆 Clique sur le × de cet onglet, tout en haut"
+    bouton.classList.add('aide')
   }, 250)
 }
 export function BoutonFermer({ flottant }) {
