@@ -828,7 +828,8 @@ function DemoAntigravity({ explorer }) {
 
 // La page en ligne : un accueil avec deux boutons (Démo / Explorer), et depuis chaque mode un bouton vers l'autre.
 export function VisiteAntigravity() {
-  const [mode, setMode] = useState("accueil");
+  // ?mode=demo ou ?mode=explorer : on arrive directement dans ce mode (boutons de la page de configuration).
+  const [mode, setMode] = useState(() => { const m = new URLSearchParams(window.location.search).get("mode"); return m === "demo" || m === "explorer" ? m : "accueil"; });
   const [fini, setFini] = useState(false);   // on arrive sur « Explorer » à la fin de la démo
   return (
     <div className="v">
@@ -845,7 +846,7 @@ export function VisiteAntigravity() {
       )}
       {mode === "demo" && <DemoAntigravity explorer={(fini) => { setFini(fini === true); setMode("explorer"); }} />}
       {mode === "explorer" && fini && (
-        <p className="v-fini">🎉 <b>Tu connais Antigravity !</b> Reviens dans la conversation d'Antigravity et réponds <b>1</b> (« J'ai regardé, on continue »). Ou explore encore l'écran ici, numéro par numéro.</p>
+        <p className="v-fini">🎉 <b>Tu connais Antigravity !</b> {window.self !== window.top ? <>Clique sur <b>« ↩ Revenir à la configuration »</b>, sous cette fenêtre.</> : <>Reviens dans Antigravity.</>} Ou explore encore l'écran ici, numéro par numéro.</p>
       )}
       {mode === "explorer" && (
         <div className="g-fenetre-aide g-paysage v-explorer">
