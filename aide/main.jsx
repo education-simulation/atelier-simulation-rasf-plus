@@ -29,11 +29,13 @@ function fermer(ev) {
   }, 250)
 }
 export function BoutonFermer({ flottant }) {
+  if (window.self !== window.top) return null   // ouverte dans une fenêtre (popup) : c'est elle qui a son bouton Fermer
   return <button type="button" className={`aide-fermer${flottant ? ' flottant' : ''}`} onClick={fermer}>✕ Fermer</button>
 }
 
 // La même bande jaune que la page de progression : rappelle de revenir répondre à l'IA.
 function Bande({ quoi }) {
+  if (window.self !== window.top) return null   // dans une fenêtre (popup) : la page qui l'ouvre a déjà sa bande
   return (
     <div className="ga-repondre" role="note">
       <span className="ga-fleche" aria-hidden="true">⬅</span>
