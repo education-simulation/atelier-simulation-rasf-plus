@@ -12,15 +12,20 @@ const PLUS = `
 body { margin:0; font-family:'Nunito',system-ui,sans-serif; }
 .aide-fermer { all:unset; cursor:pointer; margin-left:auto; color:#fff; background:#3f3f46; border:1px solid #52525b; border-radius:8px; padding:4px 12px; font-weight:800; font-size:13px; }
 .aide-fermer:hover { background:#dc2626; border-color:#dc2626; }
-.aide-fermer.flottant { position:fixed; top:12px; right:12px; z-index:70; background:#0b0b0f; padding:7px 14px; font-size:14px; }
+.aide-fermer.flottant { position:fixed; top:12px; right:12px; z-index:70; background:#0b0b0f; padding:7px 14px; font-size:14px; }\n.g.avec-fermer { padding-top:64px !important; }
 `
 const page = document.body.dataset.page
 
-// « ✕ Fermer » : ferme cet onglet (et la fenêtre si c'est son seul onglet). Si le navigateur refuse
-// (page ouverte autrement que par un lien), on explique comment fermer l'onglet à la main.
-function fermer() {
+// « ✕ Fermer » : ferme cet onglet. Un navigateur refuse souvent de fermer un onglet ouvert par un lien : on revient
+// alors à la page d'avant si elle existe, sinon on dit, sur la page (pas d'alerte, souvent bloquée), comment fermer l'onglet.
+function fermer(ev) {
+  const bouton = ev.currentTarget
   window.close()
-  setTimeout(() => { if (!window.closed) alert("Ferme cet onglet avec le × de l'onglet, en haut.") }, 300)
+  setTimeout(() => {
+    if (window.closed) return
+    if (history.length > 1) { history.back(); return }
+    bouton.textContent = "Ferme cet onglet avec son × (en haut)"
+  }, 250)
 }
 export function BoutonFermer({ flottant }) {
   return <button type="button" className={`aide-fermer${flottant ? ' flottant' : ''}`} onClick={fermer}>✕ Fermer</button>
@@ -54,6 +59,6 @@ function Fenetres() {
 createRoot(document.getElementById('root')).render(
   <>
     <style>{CSS + PLUS}</style>
-    {page === 'antigravity' ? <div className="g" style={{ paddingBottom: 110 }}><BoutonFermer flottant /><VisiteAntigravity /><Bande quoi="Quand tu as fini, écris 1 (J'ai regardé, on continue), puis Entrée." /></div> : page === 'etape' ? <PageEtape n={Number(new URLSearchParams(location.search).get('n')) || 1} fermer={<BoutonFermer />} /> : <Fenetres />}
+    {page === 'antigravity' ? <div className="g avec-fermer" style={{ paddingBottom: 110 }}><BoutonFermer flottant /><VisiteAntigravity /><Bande quoi="Quand tu as fini, écris 1 (J'ai regardé, on continue), puis Entrée." /></div> : page === 'etape' ? <PageEtape n={Number(new URLSearchParams(location.search).get('n')) || 1} fermer={<BoutonFermer />} /> : <Fenetres />}
   </>,
 )
