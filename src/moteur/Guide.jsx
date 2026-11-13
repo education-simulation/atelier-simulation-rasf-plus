@@ -436,10 +436,10 @@ const PARTIES = [
   { id: "1b", titre: "La barre de gauche", texte: "Tes conversations. « New Conversation » en ouvre une nouvelle ; un clic sur une conversation y revient. Tout en bas : Settings (les réglages)." },
   { id: "2", titre: "La conversation", texte: "Ce que l'IA Gemini te dit. Ses messages pour toi commencent par 💬 Pour toi. Le reste (« Ran commands », « Explored file »…) est technique : tu peux l'ignorer." },
   { id: "3", titre: "La zone de message", texte: "Tout en bas (« Ask anything… »). Écris-y le numéro de ta réponse, ou ta question, puis appuie sur Entrée. Le micro 🎤 permet de dicter." },
-  { id: "4", titre: "Le choix du modèle", texte: "Sous la zone de message, à gauche (par exemple « Gemini 3.8 Flash »). Un clic ouvre la liste des modèles. Passe la souris sur un modèle Gemini : 3 niveaux s'affichent, Low (faible : le plus rapide, consomme le moins), Medium (moyen) et High (élevé : plus réfléchi, consomme plus). Low ou Medium suffisent pour ton site." },
+  { id: "4", titre: "Le choix du modèle", texte: "Sous la zone de message, à gauche (par exemple « Gemini 3.8 Flash »). Un clic ouvre la liste des modèles. Passe la souris sur un modèle Gemini : 3 niveaux s'affichent, Low (faible : le plus rapide, consomme le moins), Medium (moyen) et High (élevé : plus réfléchi, consomme plus). Low ou Medium suffisent pour l'atelier." },
   { id: "5", titre: "Ton usage", texte: "Dans le menu des modèles, passe la souris sur « View Usage » : Antigravity montre ce qu'il te reste pour la semaine, en pourcentage, pour chaque famille : « Gemini Models » (avec la date de remise à zéro, par exemple « resets in 6d 22h ») et « Claude and GPT models ». À 0 %, il affiche « Model quota reached » : attends la remise à zéro, ou choisis un modèle de l'autre famille. Si tes crédits sont à 0 %, contacte marc-olivier.reula@rasf.fr." },
-  { id: "6a", titre: "Le navigateur d'Antigravity", texte: "Le volet de droite est un navigateur intégré à Antigravity, avec des onglets, comme Chrome : ta page de progression, ton interface (localhost)… Clique sur un onglet pour passer de l'un à l'autre ; le × d'un onglet le ferme ; ↗ ouvre l'onglet dans ton navigateur habituel." },
-  { id: "6b", titre: "Ouvrir un nouvel onglet", texte: "Le bouton + à droite des onglets ouvre un onglet vide. Tapes-y l'adresse de ton site (par exemple http://localhost:5799/) pour le voir à côté de ta page de progression." },
+  { id: "6a", titre: "Le navigateur d'Antigravity", texte: "Le volet de droite est un navigateur intégré à Antigravity, avec des onglets, comme Chrome : tu peux y ouvrir ta simulation. Clique sur un onglet pour passer de l'un à l'autre ; le × d'un onglet le ferme ; ↗ ouvre l'onglet dans ton navigateur habituel." },
+  { id: "6b", titre: "Ouvrir un nouvel onglet", texte: "Le bouton + à droite des onglets ouvre un onglet vide. Tapes-y une adresse (un site, ou ta simulation) pour l'ouvrir à côté de la conversation." },
   { id: "6c", titre: "Régler la largeur", texte: "La fine barre verticale entre la conversation (2) et le volet de droite (6) se déplace : pose la souris dessus (le curseur devient ↔), garde le bouton appuyé et glisse à gauche ou à droite pour donner plus de place à l'un ou à l'autre." },
   { id: "7a", titre: "Fermer le volet de droite", texte: "Le bouton en forme de rectangle, tout en haut à droite : un clic ferme le volet de droite, un 2e clic le rouvre." },
   { id: "7b", titre: "Agrandir le volet de droite", texte: "Le bouton ⤢, tout en haut à droite : le volet prend toute la fenêtre. Un 2e clic le remet à côté de la conversation." },
@@ -490,27 +490,27 @@ function SchemaAntigravity({ actif, setActif, spot = false, zones = null, pastil
       <rect x="0" y="32" width="150" height="398" fill="#16161b" />
       <rect x="10" y="44" width="130" height="22" rx="6" fill="#26262e" /><text x="20" y="59" fontSize="11" fill="#e4e4e7" style={t}>+ New Conversation</text>
       <text x="16" y="92" fontSize="10" fill="#71717a" style={t}>Conversations</text>
-      <rect x="10" y="100" width="130" height="20" rx="5" fill={conv === 0 ? "#3a3a44" : "transparent"} style={{ transition: "fill .3s" }} /><text x="18" y="114" fontSize="10" fill="#d4d4d8" style={t}>Création de mon site</text>
-      <rect x="10" y="124" width="130" height="20" rx="5" fill={conv === 1 ? "#3a3a44" : "transparent"} style={{ transition: "fill .3s" }} /><text x="18" y="138" fontSize="10" fill="#d4d4d8" style={t}>Ma 1re simulation</text>
+      <rect x="10" y="100" width="130" height="20" rx="5" fill={conv === 0 ? "#3a3a44" : "transparent"} style={{ transition: "fill .3s" }} /><text x="18" y="114" fontSize="10" fill="#d4d4d8" style={t}>Atelier simulation</text>
+      <rect x="10" y="124" width="130" height="20" rx="5" fill={conv === 1 ? "#3a3a44" : "transparent"} style={{ transition: "fill .3s" }} /><text x="18" y="138" fontSize="10" fill="#d4d4d8" style={t}>Ma simulation</text>
       <text x="16" y="414" fontSize="10" fill="#a1a1aa" style={t}>⚙ Settings</text>
       {/* conversation (le milieu change avec la conversation choisie à gauche) */}
       {conv === 0 ? (
         <g key="c0" className="g-apparait">
-        <rect x="166" y="48" width="200" height="34" rx="10" fill="#1e1e25" /><text x="176" y="69" fontSize="10" fill="#d4d4d8" style={t}>Crée mon site avec le modèle…</text>
+        <rect x="166" y="48" width="200" height="34" rx="10" fill="#1e1e25" /><text x="176" y="69" fontSize="10" fill="#d4d4d8" style={t}>Lis le fichier AGENTS.md…</text>
         <text x="166" y="106" fontSize="10" fill="#71717a" style={t}>Ran commands ›</text>
         <text x="166" y="132" fontSize="11" fill="#fff" fontWeight="700" style={t}>💬 Pour toi :</text>
-        <text x="166" y="152" fontSize="10.5" fill="#e4e4e7" style={t}>Quel nom pour ton site ?</text>
-        <text x="166" y="174" fontSize="10.5" fill="#d4d4d8" style={t}>1. Mon labo virtuel</text>
-        <text x="166" y="190" fontSize="10.5" fill="#d4d4d8" style={t}>2. La paillasse virtuelle</text>
+        <text x="166" y="152" fontSize="10.5" fill="#e4e4e7" style={t}>Dans quel dossier ranger tes simulations ?</text>
+        <text x="166" y="174" fontSize="10.5" fill="#d4d4d8" style={t}>1. Bureau (recommandé)</text>
+        <text x="166" y="190" fontSize="10.5" fill="#d4d4d8" style={t}>2. Documents</text>
         <text x="166" y="228" fontSize="10" fill="#a1a1aa" fontStyle="italic" style={t}>✍️ Écris le numéro dans la zone de message</text>
         </g>
       ) : (
         <g key="c1" className="g-apparait">
-          <rect x="226" y="48" width="200" height="34" rx="10" fill="#1e1e25" /><text x="236" y="69" fontSize="10" fill="#d4d4d8" style={t}>Ajoute une simulation de titrage</text>
-          <text x="166" y="106" fontSize="10" fill="#71717a" style={t}>Edited 2 files ›</text>
+          <rect x="226" y="48" width="200" height="34" rx="10" fill="#1e1e25" /><text x="236" y="69" fontSize="10" fill="#d4d4d8" style={t}>Active les 3 boutons d'illuminants</text>
+          <text x="166" y="106" fontSize="10" fill="#71717a" style={t}>Edited 1 file ›</text>
           <text x="166" y="132" fontSize="11" fill="#fff" fontWeight="700" style={t}>💬 Pour toi :</text>
-          <text x="166" y="152" fontSize="10.5" fill="#e4e4e7" style={t}>✅ Ta simulation de titrage est prête.</text>
-          <text x="166" y="172" fontSize="10.5" fill="#d4d4d8" style={t}>👉 Regarde-la à droite, dans ton site.</text>
+          <text x="166" y="152" fontSize="10.5" fill="#e4e4e7" style={t}>✅ Les 3 boutons fonctionnent.</text>
+          <text x="166" y="172" fontSize="10.5" fill="#d4d4d8" style={t}>👉 Recharge ta page : Cmd + R.</text>
         </g>
       )}
       {/* zone de message */}
@@ -522,12 +522,11 @@ function SchemaAntigravity({ actif, setActif, spot = false, zones = null, pastil
       {/* volet de droite */}
       <rect x="476" y="32" width="284" height="398" fill="#f1f5f9" />
       <rect x="476" y="32" width="284" height="26" fill="#1c1c22" />
-      <rect x="482" y="36" width="84" height="18" rx="5" fill="#3a3a44" /><text x="489" y="49" fontSize="9.5" fill="#fff" style={t}>Page guide  ×</text>
-      <rect x="570" y="36" width="70" height="18" rx="5" fill="#26262e" /><text x="577" y="49" fontSize="9.5" fill="#a1a1aa" style={t}>Mon site  ×</text>
+      <rect x="482" y="36" width="140" height="18" rx="5" fill="#3a3a44" /><text x="489" y="49" fontSize="9.5" fill="#fff" style={t}>metamerisme.html  ×</text>
       <text x="654" y="50" fontSize="14" fill="#d4d4d8" textAnchor="middle" style={t}>+</text>
       <text x="700" y="49" fontSize="12" fill="#a1a1aa" textAnchor="middle" style={t}>↗</text>
-      <rect x="482" y="62" width="272" height="16" rx="8" fill="#e2e8f0" /><text x="492" y="73" fontSize="8.5" fill="#64748b" style={t}>localhost:5799/?guide</text>
-      <text x="610" y="104" fontSize="15" fontWeight="800" fill="#0f172a" textAnchor="middle" style={t}>Progression</text>
+      <rect x="482" y="62" width="272" height="16" rx="8" fill="#e2e8f0" /><text x="492" y="73" fontSize="8.5" fill="#64748b" style={t}>file:///…/atelier-simulation/metamerisme.html</text>
+      <text x="610" y="104" fontSize="15" fontWeight="800" fill="#0f172a" textAnchor="middle" style={t}>Atelier · Métamérisme</text>
       <rect x="496" y="118" width="244" height="40" rx="8" fill="#fff" /><rect x="496" y="168" width="244" height="80" rx="8" fill="#fff" />
       <rect x="506" y="182" width="224" height="18" rx="5" fill="#dcfce7" /><rect x="506" y="206" width="224" height="18" rx="5" fill="#fef3c7" stroke="#f59e0b" />
       {/* menu des modèles, montré pour 4 et 5 */}
@@ -633,7 +632,7 @@ function SchemaAntigravity({ actif, setActif, spot = false, zones = null, pastil
         <g className="g-apparait" pointerEvents="none">
           <rect x="160" y="208" width="300" height="128" rx="12" fill="#1c1c22" stroke="#52525b" />
           <text x="172" y="226" fontSize="10.5" fontWeight="800" fill="#fff" style={t}>📄 Allow write access to this path?</text>
-          <rect x="170" y="233" width="280" height="15" rx="4" fill="#26262e" /><text x="176" y="244" fontSize="8" fill="#d4d4d8" fontFamily="Menlo, monospace">/Users/…/Desktop/mon-site/PROGRESSION.md</text>
+          <rect x="170" y="233" width="280" height="15" rx="4" fill="#26262e" /><text x="176" y="244" fontSize="8" fill="#d4d4d8" fontFamily="Menlo, monospace">/Users/…/Desktop/atelier-simulation/metamerisme.html</text>
           {["Yes, allow this time", "Yes, and always allow in this conversation", "Yes, and always allow", "No (tell the agent what to do instead)"].map((txt, n) => (
             <g key={n}>
               {(fenetre === 2 ? n === 2 : n === 0) && <rect x="168" y={252 + n * 18} width="284" height="17" rx="5" fill={n === 2 ? "#f59e0b" : "#2e2e36"} />}
@@ -740,9 +739,9 @@ const DEMO = [
   { titre: "« Auto »", texte: "« Auto » laisse l'IA travailler seule ; elle te demande la permission quand il le faut (les petites fenêtres d'autorisation en anglais). Laisse-le tel quel.", zones: [Z.auto] },
   { titre: "Les petites fenêtres d'autorisation en anglais", texte: "Avant certaines actions, l'IA demande la permission dans une petite fenêtre, au-dessus de la zone de prompt. Clique sur « Yes, and always allow » (le 3e choix), puis sur Submit.", zones: [Z.fenetre], bulle: { x: 470, y: 200 }, boucle: false, images: [{ fenetre: 1 }, { fenetre: 1, curseur: { x: 300, y: 300 } }, { fenetre: 2, curseur: { x: 300, y: 300 } }, { fenetre: 2, curseur: { x: 428, y: 326 } }, { zones: [Z.prompt], curseur: { x: 428, y: 326 } }] },
   { titre: "Une conversation = un écran", texte: "Le milieu montre la conversation choisie à gauche. Tu peux en avoir plusieurs : clique sur une autre, et le milieu change.", zones: [Z.conversations, Z.milieu], bulle: { x: 20, y: 250 }, images: [{ conv: 0, curseur: { x: 60, y: 110 } }, { conv: 1, curseur: { x: 60, y: 134 } }] },
-  { titre: "③ À droite : le navigateur", texte: "Un navigateur intégré à Antigravity, comme Chrome : tu y vois ta page de progression et ton interface simulations.", zones: [Z.droite] },
+  { titre: "③ À droite : le navigateur", texte: "Un navigateur intégré à Antigravity, comme Chrome : tu peux y ouvrir ta simulation, à côté de la conversation.", zones: [Z.droite] },
   { titre: "Les onglets", texte: "Comme dans Chrome : un clic sur un onglet pour passer de l'un à l'autre, le × pour le fermer, le + pour en ouvrir un nouveau, ↗ pour l'ouvrir dans ton navigateur habituel.", zones: [Z.onglets] },
-  { titre: "L'adresse : localhost", texte: "« localhost » veut dire « ton ordinateur » : ton site y tourne en brouillon et toi seul le vois. Il sera visible par tous une fois mis en ligne.", zones: [Z.adresse] },
+  { titre: "L'adresse", texte: "La barre d'adresse montre la page ouverte. Ta simulation est un fichier de ton ordinateur : son adresse commence par file://, et toi seul la vois.", zones: [Z.adresse] },
   { titre: "Refermer le navigateur", texte: "Le rectangle tout en haut à droite ferme le navigateur ; un 2e clic le rouvre.", zones: [Z.fermer], images: [{ curseur: { x: 716, y: 18 } }, { curseur: { x: 716, y: 18 }, ferme: true }] },
   { titre: "Régler la largeur", texte: "La fine barre verticale entre le milieu et le navigateur se déplace : garde le bouton de la souris appuyé dessus et glisse à gauche ou à droite.", zones: [Z.barre], images: [{ actif: "6c", curseur: { x: 476, y: 244 } }, { actif: "6c", curseur: { x: 420, y: 244 } }, { actif: "6c", curseur: { x: 530, y: 244 } }] },
   { titre: "Quitter Antigravity", texte: "En bas à gauche : Settings, puis ton nom, puis « Sign Out » pour te déconnecter. Pour fermer Antigravity : Cmd + Q (Mac) ou la croix de la fenêtre (Windows).", zones: [Z.settings, Z.fenetreSettings], bulle: { x: 300, y: 250 }, images: [{ curseur: { x: 40, y: 412 } }, { actif: "8", curseur: { x: 200, y: 296 } }, { actif: "8", curseur: { x: 190, y: 356 } }] },
